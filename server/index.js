@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const useRoutes = require('./routes/userRoutes');
+const movieRoutes = require('./routes/movieRoutes');
 
 const app = express();
 app.use(express.json());
 app.use('/api/users', useRoutes);
+app.use('/api/movies', movieRoutes);
 
 
 app.listen(8081, () => {

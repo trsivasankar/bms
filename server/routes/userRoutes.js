@@ -7,9 +7,6 @@ const authMiddleware = require("../middlewares/authMiddleware");
 
 
 router.post('/register', async (req, res) => {
-
-
-
     try {
         const userExists = await User.findOne({ email: req.body.email });
         if (userExists) {
@@ -69,15 +66,15 @@ router.post('/login', async (req, res) => {
             return;
         }
 
-        const token = jwt.sign({ userId: user._id }, "Scaler_BMS" , {
+        const token = jwt.sign({ userId: user._id }, "Scaler_BMS", {
             expiresIn: "1d",
-          });
-      
-          res.send({
+        });
+
+        res.send({
             success: true,
             message: "Logged in",
             token: token
-          });
+        });
 
 
 
@@ -87,15 +84,15 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/get-current-user',  authMiddleware, async (req, res) => {
+router.get('/get-current-user', authMiddleware, async (req, res) => {
     // inform the server if the token is valid or not and who the user is
     const user = await User.findById(req.body.userId).select("-password");
     res.send({
-      success: true,
-      message: "You are authorised",
-      data: user
+        success: true,
+        message: "You are authorised",
+        data: user
     });
-    
-  })
+
+})
 
 module.exports = router;
